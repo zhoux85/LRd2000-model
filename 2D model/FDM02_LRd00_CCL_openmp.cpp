@@ -71,6 +71,7 @@ FILE *ap;
 FILE *fmaxs;
 FILE *fpara;
 FILE *CPU_time_CCL;
+FILE *single_ap;
 
 /* Cell Geometry */
 const double l = 0.01; // Length of the cell (cm) 
@@ -440,6 +441,7 @@ int main()
 	fpara = fopen("fpara", "w");
 	fmaxs = fopen("fmaxs", "w");
 	CPU_time_CCL = fopen("CPU_time_CCL.dat", "w");
+	single_ap= fopen("single_ap", "w");
 
 	/* Cell Geometry */
 	vcell = 1000 * pi*a*a*l; // 3.801e-5 uL 
@@ -575,6 +577,7 @@ int main()
 				if (fileflag == 1){
 					fclose(ap);
 				}
+				fprintf(single_ap, "%g\t%g\t%g\n", v[nx / 2][1], v[nx / 2][ny / 2], v[nx / 2][ny]);
 				//********** save data in file "ap"
 			}
 #pragma omp barrier // wait for the boundary update
@@ -723,6 +726,7 @@ int main()
 	fprintf(CPU_time_CCL, "%d\t%g\n", diff, dx*nx / conduction_t);
 	fclose(fmaxs);
 	fclose(CPU_time_CCL);
+	fclose(single_ap);
 
 	//fprintf(fpara, "%.3f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t"
 	//	"%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\n",

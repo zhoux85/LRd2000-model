@@ -70,6 +70,7 @@ FILE *ap;
 FILE *fmaxs;
 FILE *fpara;
 FILE *CPU_time_CCL;
+FILE *single_ap;
 
 /* Cell Geometry */
 const double l = 0.01; // Length of the cell (cm) 
@@ -438,6 +439,7 @@ int main()
 	fpara = fopen("fpara", "w");
 	fmaxs = fopen("fmaxs", "w");
 	CPU_time_CCL = fopen("CPU_time_CCL.dat", "w");
+	single_ap= fopen("single_ap", "w");
 
 	/* Cell Geometry */
 	vcell = 1000 * pi*a*a*l; // 3.801e-5 uL 
@@ -567,6 +569,7 @@ int main()
 		if (fileflag == 1){
 			fclose(ap);
 		}
+		fprintf(single_ap, "%g\t%g\t%g\n", v[nx / 2][1], v[nx / 2][ny / 2], v[nx / 2][ny]);
 		//********** save data in file "ap"
 
 		//*********** step 1 *******
@@ -691,6 +694,7 @@ int main()
 		APD90_start, APD90_end, nair[nx / 2][1], kir[nx / 2][1], cair[nx / 2][1], caimax, rmbp[nx / 2][1]);
 	fclose(ap);
 	fclose(fmaxs);
+	fclose(single_ap);
 
 	//fprintf(fpara, "%.3f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t"
 	//	"%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\t%.16f\n",
